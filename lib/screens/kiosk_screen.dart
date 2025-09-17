@@ -85,6 +85,7 @@ class _KioskScreenState extends State<KioskScreen> {
     final qr = _code;
 
     return Scaffold(
+      appBar: AppBar(centerTitle: true, title: const Text('مركز العلاج الطبيعي - الوفاء و الأمل', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold), )),
       backgroundColor: const Color(0xFFF7F7F7),
       body: SafeArea(
         child: Center(
@@ -97,7 +98,7 @@ class _KioskScreenState extends State<KioskScreen> {
                 children: [
                   const Text(
                     'Attendance Check-in / Out',
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
+                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: 24),
 
