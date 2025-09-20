@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -84,7 +84,11 @@ class _KioskScreenState extends State<KioskScreen> {
   @override
   Widget build(BuildContext context) {
     final code = _code;
-    final qrContent = code == null ? null : '$webAppBaseUrl/scan?code=$code';
+    final qrContent = code == null
+        ? null
+        : Uri.parse(webAppBaseUrl)
+            .replace(queryParameters: {'code': code})
+            .toString();
 
     return Scaffold(
       appBar: AppBar(
@@ -183,6 +187,8 @@ class _KioskScreenState extends State<KioskScreen> {
     );
   }
 }
+
+
 
 
 
