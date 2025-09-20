@@ -1,7 +1,8 @@
-import 'dart:async';
+﻿import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+import '../config.dart';
 import '../services/api_client.dart';
 
 class KioskScreen extends StatefulWidget {
@@ -56,7 +57,7 @@ class _KioskScreenState extends State<KioskScreen> {
       });
       _scheduleRefresh();
     } catch (e) {
-      setState(() => _error = 'Couldn\'t get code. Retrying…');
+      setState(() => _error = 'Couldn\'t get code. Retrying...');
       // retry after a short delay
       _refreshTimer = Timer(const Duration(seconds: 5), _loadCode);
     }
@@ -74,7 +75,7 @@ class _KioskScreenState extends State<KioskScreen> {
   }
 
   String _countdownText() {
-    if (_expiresAt == null) return '—';
+    if (_expiresAt == null) return '-';
     final s = _expiresAt!.difference(DateTime.now()).inSeconds;
     final left = s < 0 ? 0 : s;
     return '$left s';
@@ -82,10 +83,18 @@ class _KioskScreenState extends State<KioskScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final qr = _code;
+    final code = _code;
+    final qrContent = code == null ? null : '$webAppBaseUrl/scan?code=$code';
 
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: const Text('مركز العلاج الطبيعي - الوفاء و الأمل', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold), )),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          arabicAppTitle,
+          textDirection: TextDirection.rtl,
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+      ),
       backgroundColor: const Color(0xFFF7F7F7),
       body: SafeArea(
         child: Center(
@@ -125,10 +134,10 @@ class _KioskScreenState extends State<KioskScreen> {
                     child: SizedBox(
                       width: 300,
                       height: 300,
-                      child: qr == null
+                      child: qrContent == null
                           ? const Center(child: CircularProgressIndicator())
                           : QrImageView(
-                              data: qr,
+                              data: qrContent,
                               size: 300,
                               version: QrVersions.auto,
                             ),
@@ -160,7 +169,7 @@ class _KioskScreenState extends State<KioskScreen> {
                   // small footer
                   Text(
                     _expiresAt == null
-                        ? 'Waiting for code…'
+                        ? 'Waiting for code...'
                         : 'Expires at: ${_expiresAt!.toLocal()}',
                     style: const TextStyle(color: Colors.black54),
                     textAlign: TextAlign.center,
@@ -174,3 +183,7 @@ class _KioskScreenState extends State<KioskScreen> {
     );
   }
 }
+
+
+
+
