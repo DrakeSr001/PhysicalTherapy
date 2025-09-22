@@ -96,7 +96,7 @@ class _KioskScreenState extends State<KioskScreen> {
         title: const Text(
           arabicAppTitle,
           textDirection: TextDirection.rtl,
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
       ),
       backgroundColor: const Color(0xFFF7F7F7),
@@ -110,7 +110,7 @@ class _KioskScreenState extends State<KioskScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Attendance Check-in / Out',
+                    'Attendance QR-Code',
                     style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: 24),
